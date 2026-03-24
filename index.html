@@ -14,46 +14,182 @@
 
     body {
       background:
-        linear-gradient(rgba(0,0,0,0.38), rgba(0,0,0,0.38)),
+        linear-gradient(rgba(0,0,0,0.42), rgba(0,0,0,0.42)),
         url("bakgrund.jpg") center center / cover no-repeat fixed;
-      font-family: Montserrat, sans-serif;
-      padding: 30px;
+      font-family: Montserrat, Arial, sans-serif;
+      padding: 36px 60px 40px 60px;
       margin: 0;
+      color: white;
     }
 
     h1 {
       font-size: 110px;
-      margin: 40px 0 10px 0;
-      text-align: left;
+      margin: 40px 0 0 0;
       color: white;
       font-weight: 900;
       line-height: 0.95;
+      letter-spacing: -2px;
+      text-align: left;
     }
 
-    .date-row { margin-bottom:12px; font-size:18px; }
-    select { font-size:14px; padding:4px 8px; margin-left:8px; }
-    .absolute-date { position:absolute; top:10px; left:20px; z-index:1000; }
-    .top-row { display:block; }
-    .left-panel { margin-top:40px; }
-    .bottom-row { margin-top:200px; }
-    .tables-area { display:flex; gap:20px; }
-    .cat-box { flex:1; background:#fff9cc; padding:30px; border-radius:16px; color:black; box-shadow:0 4px 10px rgba(0,0,0,0.2); min-width:200px; min-height:300px; box-sizing:border-box; }
-    .cat-title { text-align:center; font-size:35px; font-weight:bold; margin-bottom:6px; }
-    table { width:100%; border-collapse:collapse; font-size:30px; }
-    th, td { padding:10px 6px; font-size:30px }
-    th { text-align:left; border-bottom:1px solid rgba(255,255,255,0.5); }
-    td:nth-child(2), th:nth-child(2) { text-align:right; }
-    tbody tr:nth-child(odd) td { background: rgba(255,255,255,0.1); }
+    .hidden-date {
+      display: none;
+    }
 
-    @media (max-width:900px) {
-      body { padding:16px; }
-      .bottom-row .tables-area { flex-direction:column; }
+    .top-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 40px;
+    }
+
+    .left-panel {
+      flex: 1;
+      padding-top: 20px;
+    }
+
+    .right-panel {
+      width: 360px;
+      display: flex;
+      justify-content: flex-end;
+      align-items: flex-start;
+      padding-top: 40px;
+      flex-shrink: 0;
+    }
+
+    .logo-box {
+      width: 260px;
+      height: 180px;
+      background: rgba(255,255,255,0.96);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      box-sizing: border-box;
+    }
+
+    .logo-box img {
+      max-width: 100%;
+      max-height: 100%;
+      display: block;
+      object-fit: contain;
+    }
+
+    .bottom-row {
+      margin-top: 70px;
+    }
+
+    .tables-area {
+      display: flex;
+      gap: 90px;
+      align-items: stretch;
+    }
+
+    .cat-box {
+      flex: 1;
+      background: rgba(255,255,255,0.88);
+      padding: 28px 34px 28px 34px;
+      color: black;
+      min-height: 560px;
+      box-sizing: border-box;
+    }
+
+    .cat-header {
+      display: grid;
+      grid-template-columns: 62px 1fr auto;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 26px;
+    }
+
+    .arrow-box {
+      width: 62px;
+      height: 62px;
+      background: #c91f1f;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 38px;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .cat-title {
+      font-size: 30px;
+      font-weight: 800;
+      text-align: left;
+    }
+
+    .time-title {
+      font-size: 30px;
+      font-weight: 800;
+      text-align: right;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 32px;
+    }
+
+    thead {
+      display: none;
+    }
+
+    td {
+      padding: 16px 0;
+      font-size: 32px;
+      vertical-align: middle;
+    }
+
+    td:first-child {
+      text-align: left;
+      padding-right: 20px;
+    }
+
+    td:last-child {
+      text-align: right;
+      white-space: nowrap;
+      font-variant-numeric: tabular-nums;
+    }
+
+    tbody tr:nth-child(odd) td {
+      background: transparent;
+    }
+
+    @media (max-width: 1200px) {
+      body {
+        padding: 24px;
+      }
+
+      h1 {
+        font-size: 72px;
+      }
+
+      .top-row {
+        flex-direction: column;
+      }
+
+      .right-panel {
+        width: auto;
+        padding-top: 10px;
+      }
+
+      .tables-area {
+        flex-direction: column;
+        gap: 24px;
+      }
+
+      .cat-box {
+        min-height: 320px;
+      }
     }
   </style>
 </head>
 <body>
 
-<div class="date-row absolute-date">
+<div class="hidden-date">
   <label for="dateSelect"><b>Datum:</b></label>
   <select id="dateSelect"></select>
 </div>
@@ -62,32 +198,46 @@
   <div class="left-panel">
     <h1>Precision och<br>träffsäkerhet</h1>
   </div>
+
+  <div class="right-panel">
+    <div class="logo-box">
+      <img src="NIBE_Logo.png" alt="NIBE">
+    </div>
+  </div>
 </div>
 
 <div class="bottom-row">
   <div class="tables-area">
     <div class="cat-box">
-      <div class="cat-title">Dam</div>
+      <div class="cat-header">
+        <div class="arrow-box">→</div>
+        <div class="cat-title">Herr</div>
+        <div class="time-title">Tid/s</div>
+      </div>
       <table>
-        <thead><tr><th>Namn</th><th>Tid (s)</th></tr></thead>
-        <tbody id="dam-body"></tbody>
+        <tbody id="herr-body"></tbody>
       </table>
     </div>
 
     <div class="cat-box">
-      <div class="cat-title">Herr</div>
+      <div class="cat-header">
+        <div class="arrow-box">→</div>
+        <div class="cat-title">Dam</div>
+        <div class="time-title">Tid/s</div>
+      </div>
       <table>
-        <thead><tr><th>Namn</th><th>Tid (s)</th></tr></thead>
-        <tbody id="herr-body"></tbody>
+        <tbody id="dam-body"></tbody>
       </table>
     </div>
   </div>
 </div>
 
 <script>
+  // ======= KONSTANTER =======
   const SHEET_ID = "11x7HWnWNqN1ic5TAbx1_4Sg5CdShMO__o99yvCWAnnc";
   const SHEET_NAME = "Formulärsvar 1";
 
+  // Google Sheets gviz-JSON (direkt mot arket, inte "publish to web")
   const GVIZ_URL =
     `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?` +
     `sheet=${encodeURIComponent(SHEET_NAME)}&tqx=out:json`;
@@ -110,25 +260,24 @@
     setInterval(loadData, REFRESH_MS);
   });
 
+  // ======= HÄMTA DATA FRÅN SHEET (GVIZ) =======
   function loadData() {
     fetch(GVIZ_URL + "&t=" + Date.now(), { cache: "no-store" })
       .then(res => res.text())
       .then(text => {
+        // gviz-json är inlindat i en funktion → plocka ut JSON-delen
         const json = JSON.parse(text.substring(47, text.length - 2));
         const rows = json.table.rows;
 
         const parsed = rows.map(r => {
-          const c = r.c || [];
-
-          const timestamp = c[0]?.f || c[0]?.v || "";
-          const dateOnly = timestamp ? timestamp.toString().split(" ")[0] : "";
+          const c = r.c; // kolumner: [timestamp, name, time, category, date]
 
           return {
             name: (c[1]?.v || "").trim(),
             timeStr: (c[2]?.v || "").toString(),
             time: Number((c[2]?.v || "").toString().replace(",", ".")),
             cat: (c[3]?.v || "").trim(),
-            date: dateOnly,
+            date: (c[4]?.v || "").trim(),
           };
         }).filter(r => r.name && r.date && r.cat);
 
@@ -150,6 +299,7 @@
       });
   }
 
+  // ======= DATUM-DROPDOWN =======
   function updateDateSelect() {
     const dates = [...new Set(allResults.map(r => r.date))].sort();
     const sel = dateSelectEl;
@@ -185,12 +335,14 @@
     });
   }
 
+  // ======= RITA TABELLERNA FÖR ETT DATUM =======
   function renderForDate(date) {
     const rowsForDate = allResults.filter(r => r.date === date);
     fillCategory("Dam", "dam-body", rowsForDate);
     fillCategory("Herr", "herr-body", rowsForDate);
   }
 
+  // ======= TOPP 5 PER KATEGORI =======
   function fillCategory(categoryName, tbodyId, rows) {
     const tbody = document.getElementById(tbodyId);
     tbody.innerHTML = "";
