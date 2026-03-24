@@ -1,12 +1,265 @@
 <!DOCTYPE html>
-<html>
+<html lang="sv">
 <head>
-<meta charset="UTF-8">
-<title>NIBE</title>
-</head>
+  <meta charset="UTF-8" />
+  <title>Jämtkraft World Cup 2025 - Resultat</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body { background: #006888; font-family: Montserrat, sans-serif; padding: 30px; margin: 0; }
+    h1 { font-size: 80px; margin: 30px 0 10px 0; text-align: center; color: white; }
 
-<body style="font-family:Arial;text-align:center;padding:100px;">
-<h1>Sidan uppdateras snart</h1>
-<p> STEVENT AB </p>
+    /* Centrerad, stadig summa */
+    #donationBox {
+      font-size: 100px;
+      font-weight: bold;
+      color: #8A8C8C;
+      line-height: 1;
+      margin: 10px auto;
+      text-align: center;
+      min-width: 240px;
+      display: block;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .receiver { font-size: 80px; font-weight: bold; text-align:center; color:white; }
+    .date-row { margin-bottom:12px; font-size:18px; }
+    select { font-size:14px; padding:4px 8px; margin-left:8px; }
+    .absolute-date { position:absolute; top:10px; left:20px; z-index:1000; }
+    .top-row { display:flex; justify-content:space-between; align-items:flex-start; gap:20px; }
+    .left-panel { flex:1; margin-top:210px; }
+    .right-panel { flex:1; display:flex; justify-content:flex-end; align-items:center; margin-top:80px; }
+    .logo-box-main { width:1250px; max-width:100%; }
+    .logo-box-main img { width:100%; height:auto; display:block; }
+    .receiver-row { display:flex; align-items:center; gap:12px; margin-top:16px; justify-content:center; }
+    .receiver-logo { max-height:80px; width:auto; }
+    .bottom-row { margin-top:200px; }
+    .tables-area { display:flex; gap:20px; }
+    .cat-box { flex:1; background:#fff9cc; padding:30px; border-radius:16px; color:black; box-shadow:0 4px 10px rgba(0,0,0,0.2); min-width:200px; min-height:300px; box-sizing:border-box; }
+    .cat-title { text-align:center; font-size:35px; font-weight:bold; margin-bottom:6px; }
+    table { width:100%; border-collapse:collapse; font-size:30px; }
+    th, td { padding:10px 6px; font-size:30px }
+    th { text-align:left; border-bottom:1px solid rgba(255,255,255,0.5); }
+    td:nth-child(2), th:nth-child(2) { text-align:right; }
+    tbody tr:nth-child(odd) td { background: rgba(255,255,255,0.1); }
+
+    @media (max-width:900px) {
+      body { padding:16px; }
+      .top-row { flex-direction:column; }
+      .right-panel { justify-content:center; }
+      .bottom-row .tables-area { flex-direction:column; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- DATUM – separat, absolut längst upp till vänster -->
+<div class="date-row absolute-date">
+  <label for="dateSelect"><b>Datum:</b></label>
+  <select id="dateSelect"></select>
+</div>
+
+<div class="top-row">
+  <div class="left-panel">
+    <h1>Tillsammans har vi samlat in</h1>
+    <div id="donationBox">0:-</div>
+
+    <div class="receiver-row">
+      <div class="receiver">till Nattvandring</div>
+      <img class="receiver-logo" src="nattvandring.png" alt="Nattvandring">
+    </div>
+  </div>
+
+  <div class="right-panel">
+    <div class="logo-box-main">
+      <img src="jamtkraft_vit.png" alt="Jämtkraft">
+    </div>
+  </div>
+</div>
+
+<div class="bottom-row">
+  <div class="tables-area">
+    <div class="cat-box">
+      <div class="cat-title">Dam</div>
+      <table>
+        <thead><tr><th>Namn</th><th>Tid (s)</th></tr></thead>
+        <tbody id="dam-body"></tbody>
+      </table>
+    </div>
+
+    <div class="cat-box">
+      <div class="cat-title">Herr</div>
+      <table>
+        <thead><tr><th>Namn</th><th>Tid (s)</th></tr></thead>
+        <tbody id="herr-body"></tbody>
+      </table>
+    </div>
+
+    <div class="cat-box">
+      <div class="cat-title">Ungdom</div>
+      <table>
+        <thead><tr><th>Namn</th><th>Tid (s)</th></tr></thead>
+        <tbody id="ungdom-body"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script>
+  // ======= KONSTANTER =======
+  const SHEET_ID = "11x7HWnWNqN1ic5TAbx1_4Sg5CdShMO__o99yvCWAnnc";   // ditt kalkylarks ID
+  const SHEET_NAME = "Formulärsvar 1";                                // flikens namn
+
+  // Google Sheets gviz-JSON (direkt mot arket, inte "publish to web")
+  const GVIZ_URL =
+    `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?` +
+    `sheet=${encodeURIComponent(SHEET_NAME)}&tqx=out:json`;
+
+  const DONATION_PER_RESULT = 50;   // 50 kr per resultat
+  const REFRESH_MS = 3000;          // hämta nya resultat var 3:e sekund
+
+  let allResults = [];
+  let selectedDate = null;
+  let dateSelectEl = null;
+
+  document.addEventListener("DOMContentLoaded", () => {
+    dateSelectEl = document.getElementById("dateSelect");
+
+    dateSelectEl.addEventListener("change", () => {
+      selectedDate = dateSelectEl.value;
+      renderForDate(selectedDate);
+    });
+
+    loadData();                        // första hämtningen
+    setInterval(loadData, REFRESH_MS); // sedan automatiskt
+  });
+
+  // ======= HÄMTA DATA FRÅN SHEET (GVIZ) =======
+  function loadData() {
+    fetch(GVIZ_URL + "&t=" + Date.now(), { cache: "no-store" })
+      .then(res => res.text())
+      .then(text => {
+        // gviz-json är inlindat i en funktion → plocka ut JSON-delen
+        const json = JSON.parse(text.substring(47, text.length - 2));
+        const rows = json.table.rows;
+
+        const parsed = rows.map(r => {
+          const c = r.c; // kolumner: [timestamp, name, time, category, date]
+
+          return {
+            // tidsstämpeln (c[0]) hoppar vi över – du kan spara den vid behov
+            name: (c[1]?.v || "").trim(),
+            timeStr: (c[2]?.v || "").toString(),
+            time: Number((c[2]?.v || "").toString().replace(",", ".")),
+            cat: (c[3]?.v || "").trim(),
+            date: (c[4]?.v || "").trim(),
+          };
+        }).filter(r => r.name && r.date && r.cat);
+
+        allResults = parsed;
+
+        updateDonation();
+        updateDateSelect();
+
+        if (!selectedDate && allResults.length) {
+          const dates = [...new Set(allResults.map(r => r.date))].sort();
+          selectedDate = dates[dates.length - 1];   // senaste datumet
+          dateSelectEl.value = selectedDate;
+        }
+
+        if (selectedDate) renderForDate(selectedDate);
+      })
+      .catch(err => {
+        console.error("Fel vid hämtning av gviz:", err);
+        clearTables();
+        document.getElementById("donationBox").textContent = "0:-";
+      });
+  }
+
+  // ======= 50 kr per resultat =======
+  function updateDonation() {
+    const total = allResults.length * DONATION_PER_RESULT;
+    document.getElementById("donationBox").textContent = total + ":-";
+  }
+
+  // ======= DATUM-DROPDOWN =======
+  function updateDateSelect() {
+    const dates = [...new Set(allResults.map(r => r.date))].sort();
+    const sel = dateSelectEl;
+    const previous = selectedDate;
+
+    sel.innerHTML = "";
+    dates.forEach(d => {
+      const opt = document.createElement("option");
+      opt.value = d;
+      opt.textContent = d;
+      sel.appendChild(opt);
+    });
+
+    if (dates.length === 0) {
+      selectedDate = null;
+      clearTables();
+      return;
+    }
+
+    if (previous && dates.includes(previous)) {
+      selectedDate = previous;
+    } else {
+      selectedDate = dates[dates.length - 1];
+    }
+
+    sel.value = selectedDate;
+  }
+
+  function clearTables() {
+    ["dam-body", "herr-body", "ungdom-body"].forEach(id => {
+      document.getElementById(id).innerHTML =
+        `<tr><td colspan="2">Inga resultat</td></tr>`;
+    });
+  }
+
+  // ======= RITA TABELLERNA FÖR ETT DATUM =======
+  function renderForDate(date) {
+    const rowsForDate = allResults.filter(r => r.date === date);
+    fillCategory("Dam", "dam-body", rowsForDate);
+    fillCategory("Herr", "herr-body", rowsForDate);
+    fillCategory("Ungdom", "ungdom-body", rowsForDate);
+  }
+
+  // ======= TOPP 5 PER KATEGORI =======
+  function fillCategory(categoryName, tbodyId, rows) {
+    const tbody = document.getElementById(tbodyId);
+    tbody.innerHTML = "";
+
+    let list = rows.filter(r => r.cat === categoryName);
+
+    list.sort((a, b) => {
+      const aTime = isNaN(a.time) ? Number.POSITIVE_INFINITY : a.time;
+      const bTime = isNaN(b.time) ? Number.POSITIVE_INFINITY : b.time;
+      return aTime - bTime;
+    });
+
+    list = list.slice(0, 5);
+
+    if (!list.length) {
+      tbody.innerHTML = `<tr><td colspan="2">Inga resultat</td></tr>`;
+      return;
+    }
+
+    list.forEach(r => {
+      const tr = document.createElement("tr");
+      const tdName = document.createElement("td");
+      const tdTime = document.createElement("td");
+
+      tdName.textContent = r.name;
+      tdTime.textContent = isNaN(r.time) ? r.timeStr : r.time;
+
+      tr.appendChild(tdName);
+      tr.appendChild(tdTime);
+      tbody.appendChild(tr);
+    });
+  }
+
+</script>
+
 </body>
 </html>
