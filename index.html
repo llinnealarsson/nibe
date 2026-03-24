@@ -17,23 +17,40 @@
         linear-gradient(rgba(0,0,0,0.42), rgba(0,0,0,0.42)),
         url("bakgrund.jpg") center center / cover no-repeat fixed;
       font-family: Montserrat, Arial, sans-serif;
-      padding: 36px 60px 40px 60px;
       margin: 0;
       color: white;
+      min-height: 100vh;
+      overflow-x: hidden;
     }
 
-    h1 {
-      font-size: 110px;
-      margin: 40px 0 0 0;
+    .page {
+      width: 100%;
+      min-height: 100vh;
+      padding: 28px 42px 40px 42px;
+      box-sizing: border-box;
+    }
+
+    .date-row {
+      position: absolute;
+      top: 18px;
+      left: 22px;
+      z-index: 1000;
+      font-size: 16px;
       color: white;
-      font-weight: 900;
-      line-height: 0.95;
-      letter-spacing: -2px;
-      text-align: left;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
 
-    .hidden-date {
-      display: none;
+    .date-row label {
+      font-weight: 700;
+    }
+
+    select {
+      font-size: 14px;
+      padding: 4px 8px;
+      border: none;
+      border-radius: 0;
     }
 
     .top-row {
@@ -41,20 +58,31 @@
       justify-content: space-between;
       align-items: flex-start;
       gap: 40px;
+      padding-top: 40px;
     }
 
     .left-panel {
       flex: 1;
-      padding-top: 20px;
+      padding-top: 30px;
+    }
+
+    h1 {
+      font-size: 104px;
+      margin: 0;
+      color: white;
+      font-weight: 900;
+      line-height: 0.94;
+      letter-spacing: -2px;
+      text-align: left;
     }
 
     .right-panel {
-      width: 360px;
+      width: 330px;
       display: flex;
       justify-content: flex-end;
       align-items: flex-start;
-      padding-top: 40px;
       flex-shrink: 0;
+      padding-top: 10px;
     }
 
     .logo-box {
@@ -71,26 +99,26 @@
     .logo-box img {
       max-width: 100%;
       max-height: 100%;
-      display: block;
       object-fit: contain;
+      display: block;
     }
 
     .bottom-row {
-      margin-top: 70px;
+      margin-top: 120px;
     }
 
     .tables-area {
       display: flex;
-      gap: 90px;
+      gap: 48px;
       align-items: stretch;
     }
 
     .cat-box {
       flex: 1;
-      background: rgba(255,255,255,0.88);
-      padding: 28px 34px 28px 34px;
+      background: rgba(255,255,255,0.90);
       color: black;
-      min-height: 560px;
+      min-height: 510px;
+      padding: 28px 34px 30px 34px;
       box-sizing: border-box;
     }
 
@@ -99,7 +127,7 @@
       grid-template-columns: 62px 1fr auto;
       align-items: center;
       gap: 16px;
-      margin-bottom: 26px;
+      margin-bottom: 20px;
     }
 
     .arrow-box {
@@ -130,7 +158,6 @@
     table {
       width: 100%;
       border-collapse: collapse;
-      font-size: 32px;
     }
 
     thead {
@@ -138,8 +165,8 @@
     }
 
     td {
-      padding: 16px 0;
-      font-size: 32px;
+      padding: 14px 0;
+      font-size: 31px;
       vertical-align: middle;
     }
 
@@ -154,228 +181,251 @@
       font-variant-numeric: tabular-nums;
     }
 
-    tbody tr:nth-child(odd) td {
-      background: transparent;
+    .empty-row td {
+      color: #444;
     }
 
     @media (max-width: 1200px) {
-      body {
-        padding: 24px;
-      }
-
-      h1 {
-        font-size: 72px;
+      .page {
+        padding: 20px;
       }
 
       .top-row {
         flex-direction: column;
       }
 
+      h1 {
+        font-size: 70px;
+      }
+
       .right-panel {
         width: auto;
-        padding-top: 10px;
+      }
+
+      .bottom-row {
+        margin-top: 60px;
       }
 
       .tables-area {
         flex-direction: column;
-        gap: 24px;
       }
 
       .cat-box {
-        min-height: 320px;
+        min-height: 300px;
       }
     }
   </style>
 </head>
 <body>
+  <div class="page">
 
-<div class="hidden-date">
-  <label for="dateSelect"><b>Datum:</b></label>
-  <select id="dateSelect"></select>
-</div>
-
-<div class="top-row">
-  <div class="left-panel">
-    <h1>Precision och<br>träffsäkerhet</h1>
-  </div>
-
-  <div class="right-panel">
-    <div class="logo-box">
-      <img src="NIBE_Logo.png" alt="NIBE">
+    <div class="date-row">
+      <label for="dateSelect">Datum:</label>
+      <select id="dateSelect"></select>
     </div>
-  </div>
-</div>
 
-<div class="bottom-row">
-  <div class="tables-area">
-    <div class="cat-box">
-      <div class="cat-header">
-        <div class="arrow-box">→</div>
-        <div class="cat-title">Herr</div>
-        <div class="time-title">Tid/s</div>
+    <div class="top-row">
+      <div class="left-panel">
+        <h1>Precision och<br>träffsäkerhet</h1>
       </div>
-      <table>
-        <tbody id="herr-body"></tbody>
-      </table>
-    </div>
 
-    <div class="cat-box">
-      <div class="cat-header">
-        <div class="arrow-box">→</div>
-        <div class="cat-title">Dam</div>
-        <div class="time-title">Tid/s</div>
+      <div class="right-panel">
+        <div class="logo-box">
+          <img src="NIBE_Logo.png" alt="NIBE">
+        </div>
       </div>
-      <table>
-        <tbody id="dam-body"></tbody>
-      </table>
     </div>
+
+    <div class="bottom-row">
+      <div class="tables-area">
+        <div class="cat-box">
+          <div class="cat-header">
+            <div class="arrow-box">→</div>
+            <div class="cat-title">Herr</div>
+            <div class="time-title">Tid</div>
+          </div>
+          <table>
+            <tbody id="herr-body"></tbody>
+          </table>
+        </div>
+
+        <div class="cat-box">
+          <div class="cat-header">
+            <div class="arrow-box">→</div>
+            <div class="cat-title">Dam</div>
+            <div class="time-title">Tid</div>
+          </div>
+          <table>
+            <tbody id="dam-body"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
   </div>
-</div>
 
-<script>
-  // ======= KONSTANTER =======
-  const SHEET_ID = "11x7HWnWNqN1ic5TAbx1_4Sg5CdShMO__o99yvCWAnnc";
-  const SHEET_NAME = "Formulärsvar 1";
+  <script>
+    // ======= KONSTANTER =======
+    const SHEET_ID = "11x7HWnWNqN1ic5TAbx1_4Sg5CdShMO__o99yvCWAnnc";
+    const SHEET_NAME = "Formulärsvar 1";
 
-  // Google Sheets gviz-JSON (direkt mot arket, inte "publish to web")
-  const GVIZ_URL =
-    `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?` +
-    `sheet=${encodeURIComponent(SHEET_NAME)}&tqx=out:json`;
+    // Google Sheets gviz-JSON (direkt mot arket, inte "publish to web")
+    const GVIZ_URL =
+      `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?` +
+      `sheet=${encodeURIComponent(SHEET_NAME)}&tqx=out:json`;
 
-  const REFRESH_MS = 3000;
+    const REFRESH_MS = 3000;
 
-  let allResults = [];
-  let selectedDate = null;
-  let dateSelectEl = null;
+    let allResults = [];
+    let selectedDate = null;
+    let dateSelectEl = null;
 
-  document.addEventListener("DOMContentLoaded", () => {
-    dateSelectEl = document.getElementById("dateSelect");
+    document.addEventListener("DOMContentLoaded", () => {
+      dateSelectEl = document.getElementById("dateSelect");
 
-    dateSelectEl.addEventListener("change", () => {
-      selectedDate = dateSelectEl.value;
-      renderForDate(selectedDate);
-    });
-
-    loadData();
-    setInterval(loadData, REFRESH_MS);
-  });
-
-  // ======= HÄMTA DATA FRÅN SHEET (GVIZ) =======
-  function loadData() {
-    fetch(GVIZ_URL + "&t=" + Date.now(), { cache: "no-store" })
-      .then(res => res.text())
-      .then(text => {
-        // gviz-json är inlindat i en funktion → plocka ut JSON-delen
-        const json = JSON.parse(text.substring(47, text.length - 2));
-        const rows = json.table.rows;
-
-        const parsed = rows.map(r => {
-          const c = r.c; // kolumner: [timestamp, name, time, category, date]
-
-          return {
-            name: (c[1]?.v || "").trim(),
-            timeStr: (c[2]?.v || "").toString(),
-            time: Number((c[2]?.v || "").toString().replace(",", ".")),
-            cat: (c[3]?.v || "").trim(),
-            date: (c[4]?.v || "").trim(),
-          };
-        }).filter(r => r.name && r.date && r.cat);
-
-        allResults = parsed;
-
-        updateDateSelect();
-
-        if (!selectedDate && allResults.length) {
-          const dates = [...new Set(allResults.map(r => r.date))].sort();
-          selectedDate = dates[dates.length - 1];
-          dateSelectEl.value = selectedDate;
-        }
-
-        if (selectedDate) renderForDate(selectedDate);
-      })
-      .catch(err => {
-        console.error("Fel vid hämtning av gviz:", err);
-        clearTables();
+      dateSelectEl.addEventListener("change", () => {
+        selectedDate = dateSelectEl.value;
+        renderForDate(selectedDate);
       });
-  }
 
-  // ======= DATUM-DROPDOWN =======
-  function updateDateSelect() {
-    const dates = [...new Set(allResults.map(r => r.date))].sort();
-    const sel = dateSelectEl;
-    const previous = selectedDate;
-
-    sel.innerHTML = "";
-    dates.forEach(d => {
-      const opt = document.createElement("option");
-      opt.value = d;
-      opt.textContent = d;
-      sel.appendChild(opt);
+      loadData();
+      setInterval(loadData, REFRESH_MS);
     });
 
-    if (dates.length === 0) {
-      selectedDate = null;
-      clearTables();
-      return;
+    // ======= HÄMTA DATA FRÅN SHEET (GVIZ) =======
+    function loadData() {
+      fetch(GVIZ_URL + "&t=" + Date.now(), { cache: "no-store" })
+        .then(res => res.text())
+        .then(text => {
+          const json = JSON.parse(text.substring(47, text.length - 2));
+          const rows = json.table.rows || [];
+
+          const parsed = rows.map(r => {
+            const c = r.c || [];
+
+            return {
+              name: (c[1]?.v || "").trim(),
+              timeStr: (c[2]?.v || "").toString().trim(),
+              time: Number((c[2]?.v || "").toString().replace(",", ".")),
+              cat: (c[3]?.v || "").trim(),
+              date: (c[4]?.v || "").trim(),
+            };
+          }).filter(r => r.name && r.date && r.cat);
+
+          allResults = parsed;
+
+          updateDateSelect();
+
+          if (!selectedDate && allResults.length) {
+            const dates = [...new Set(allResults.map(r => r.date))].sort();
+            selectedDate = dates[dates.length - 1];
+            dateSelectEl.value = selectedDate;
+          }
+
+          if (selectedDate) renderForDate(selectedDate);
+        })
+        .catch(err => {
+          console.error("Fel vid hämtning av gviz:", err);
+          clearTables();
+        });
     }
 
-    if (previous && dates.includes(previous)) {
-      selectedDate = previous;
-    } else {
-      selectedDate = dates[dates.length - 1];
+    // ======= DATUM-DROPDOWN =======
+    function updateDateSelect() {
+      const dates = [...new Set(allResults.map(r => r.date))].sort();
+      const sel = dateSelectEl;
+      const previous = selectedDate;
+
+      sel.innerHTML = "";
+      dates.forEach(d => {
+        const opt = document.createElement("option");
+        opt.value = d;
+        opt.textContent = d;
+        sel.appendChild(opt);
+      });
+
+      if (dates.length === 0) {
+        selectedDate = null;
+        clearTables();
+        return;
+      }
+
+      if (previous && dates.includes(previous)) {
+        selectedDate = previous;
+      } else {
+        selectedDate = dates[dates.length - 1];
+      }
+
+      sel.value = selectedDate;
     }
 
-    sel.value = selectedDate;
-  }
-
-  function clearTables() {
-    ["dam-body", "herr-body"].forEach(id => {
-      document.getElementById(id).innerHTML =
-        `<tr><td colspan="2">Inga resultat</td></tr>`;
-    });
-  }
-
-  // ======= RITA TABELLERNA FÖR ETT DATUM =======
-  function renderForDate(date) {
-    const rowsForDate = allResults.filter(r => r.date === date);
-    fillCategory("Dam", "dam-body", rowsForDate);
-    fillCategory("Herr", "herr-body", rowsForDate);
-  }
-
-  // ======= TOPP 5 PER KATEGORI =======
-  function fillCategory(categoryName, tbodyId, rows) {
-    const tbody = document.getElementById(tbodyId);
-    tbody.innerHTML = "";
-
-    let list = rows.filter(r => r.cat === categoryName);
-
-    list.sort((a, b) => {
-      const aTime = isNaN(a.time) ? Number.POSITIVE_INFINITY : a.time;
-      const bTime = isNaN(b.time) ? Number.POSITIVE_INFINITY : b.time;
-      return aTime - bTime;
-    });
-
-    list = list.slice(0, 5);
-
-    if (!list.length) {
-      tbody.innerHTML = `<tr><td colspan="2">Inga resultat</td></tr>`;
-      return;
+    function clearTables() {
+      ["dam-body", "herr-body"].forEach(id => {
+        document.getElementById(id).innerHTML =
+          `<tr class="empty-row"><td colspan="2">Inga resultat</td></tr>`;
+      });
     }
 
-    list.forEach(r => {
-      const tr = document.createElement("tr");
-      const tdName = document.createElement("td");
-      const tdTime = document.createElement("td");
+    // ======= RITA TABELLERNA FÖR ETT DATUM =======
+    function renderForDate(date) {
+      const rowsForDate = allResults.filter(r => r.date === date);
+      fillCategory("Dam", "dam-body", rowsForDate);
+      fillCategory("Herr", "herr-body", rowsForDate);
+    }
 
-      tdName.textContent = r.name;
-      tdTime.textContent = isNaN(r.time) ? r.timeStr : r.time;
+    // ======= FORMATERA TID =======
+    function formatTime(secondsValue, originalValue) {
+      if (isNaN(secondsValue)) {
+        return originalValue;
+      }
 
-      tr.appendChild(tdName);
-      tr.appendChild(tdTime);
-      tbody.appendChild(tr);
-    });
-  }
-</script>
+      const totalSeconds = Math.round(secondsValue);
+      const hours = Math.floor(totalSeconds / 3600);
+      const minutes = Math.floor((totalSeconds % 3600) / 60);
+      const seconds = totalSeconds % 60;
 
+      const pad = n => String(n).padStart(2, "0");
+
+      if (hours > 0) {
+        return `${hours}:${pad(minutes)}:${pad(seconds)}`;
+      }
+
+      return `${minutes}:${pad(seconds)}`;
+    }
+
+    // ======= TOPP 5 PER KATEGORI =======
+    function fillCategory(categoryName, tbodyId, rows) {
+      const tbody = document.getElementById(tbodyId);
+      tbody.innerHTML = "";
+
+      let list = rows.filter(r => r.cat === categoryName);
+
+      list.sort((a, b) => {
+        const aTime = isNaN(a.time) ? Number.POSITIVE_INFINITY : a.time;
+        const bTime = isNaN(b.time) ? Number.POSITIVE_INFINITY : b.time;
+        return aTime - bTime;
+      });
+
+      list = list.slice(0, 5);
+
+      if (!list.length) {
+        tbody.innerHTML = `<tr class="empty-row"><td colspan="2">Inga resultat</td></tr>`;
+        return;
+      }
+
+      list.forEach(r => {
+        const tr = document.createElement("tr");
+        const tdName = document.createElement("td");
+        const tdTime = document.createElement("td");
+
+        tdName.textContent = r.name;
+        tdTime.textContent = formatTime(r.time, r.timeStr);
+
+        tr.appendChild(tdName);
+        tr.appendChild(tdTime);
+        tbody.appendChild(tr);
+      });
+    }
+  </script>
 </body>
 </html>
