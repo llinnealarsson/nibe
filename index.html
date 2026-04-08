@@ -26,7 +26,7 @@
     .page {
       width: 100%;
       min-height: 100vh;
-      padding: 28px 42px 40px 42px;
+      padding: 22px 30px 28px 30px;
       box-sizing: border-box;
     }
 
@@ -58,16 +58,16 @@
       justify-content: space-between;
       align-items: flex-start;
       gap: 40px;
-      padding-top: 40px;
+      padding-top: 28px;
     }
 
     .left-panel {
       flex: 1;
-      padding-top: 100px;
+      padding-top: 60px;
     }
 
     h1 {
-      font-size: 160px;
+      font-size: clamp(72px, 7vw, 110px);
       margin: 0;
       color: white;
       font-weight: 900;
@@ -77,41 +77,29 @@
     }
 
     .right-panel {
-      width: 330px;
+      width: 280px;
       display: flex;
       justify-content: flex-end;
       align-items: flex-start;
       flex-shrink: 0;
-      padding-top: 100px;
+      padding-top: 60px;
     }
 
-    .logo-box {
-      width: 640px;
-      height: 340px;
-      background: rgba(255,255,255,0.96);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 24px;
-      box-sizing: border-box;
-    }
-
-    .logo-box img {
-      max-width: 100%;
-      max-height: 100%;
-      width: auto;
+    .logo-img {
+      width: 100%;
+      max-width: 240px;
       height: auto;
-      object-fit: contain;
       display: block;
+      object-fit: contain;
     }
 
     .bottom-row {
-      margin-top: 280px;
+      margin-top: 90px;
     }
 
     .tables-area {
       display: flex;
-      gap: 48px;
+      gap: 28px;
       align-items: stretch;
     }
 
@@ -119,40 +107,42 @@
       flex: 1;
       background: rgba(255,255,255,0.90);
       color: black;
-      min-height: 680px;
-      padding: 28px 34px 30px 34px;
+      min-height: 420px;
+      padding: 22px 28px 24px 28px;
       box-sizing: border-box;
     }
 
     .cat-header {
       display: grid;
-      grid-template-columns: 62px 1fr auto;
+      grid-template-columns: 42px 1fr auto;
       align-items: center;
-      gap: 16px;
-      margin-bottom: 20px;
+      gap: 12px;
+      margin-bottom: 14px;
     }
 
     .arrow-box {
-      width: 62px;
-      height: 62px;
-      background: #c91f1f;
-      color: white;
+      width: 42px;
+      height: 42px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 38px;
-      font-weight: 700;
-      line-height: 1;
+    }
+
+    .arrow-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
     }
 
     .cat-title {
-      font-size: 30px;
+      font-size: 20px;
       font-weight: 800;
       text-align: left;
     }
 
     .time-title {
-      font-size: 30px;
+      font-size: 20px;
       font-weight: 800;
       text-align: right;
     }
@@ -167,8 +157,8 @@
     }
 
     td {
-      padding: 14px 0;
-      font-size: 31px;
+      padding: 12px 0;
+      font-size: 22px;
       vertical-align: middle;
     }
 
@@ -202,10 +192,11 @@
 
       .right-panel {
         width: auto;
+        padding-top: 20px;
       }
 
       .bottom-row {
-        margin-top: 60px;
+        margin-top: 40px;
       }
 
       .tables-area {
@@ -232,9 +223,7 @@
       </div>
 
       <div class="right-panel">
-        <div class="logo-box">
-          <img src="NIBE_Logo2.png" alt="NIBE">
-        </div>
+        <img class="logo-img" src="NIBE_Logo.png" alt="NIBE">
       </div>
     </div>
 
@@ -242,7 +231,9 @@
       <div class="tables-area">
         <div class="cat-box">
           <div class="cat-header">
-            <div class="arrow-box">→</div>
+            <div class="arrow-box">
+              <img src="Nibe Pil RGB.png" alt="Pil">
+            </div>
             <div class="cat-title">Herr</div>
             <div class="time-title">Tid</div>
           </div>
@@ -253,7 +244,9 @@
 
         <div class="cat-box">
           <div class="cat-header">
-            <div class="arrow-box">→</div>
+            <div class="arrow-box">
+              <img src="Nibe Pil RGB.png" alt="Pil">
+            </div>
             <div class="cat-title">Dam</div>
             <div class="time-title">Tid</div>
           </div>
