@@ -225,13 +225,13 @@ body {
   <div class="page">
 
     <div class="date-row">
-      <label for="dateSelect">Datum:</label>
+      <label for="dateSelect">Date:</label>
       <select id="dateSelect"></select>
     </div>
 
     <div class="top-row">
       <div class="left-panel">
-        <h1>Precision och<br>träffsäkerhet</h1>
+        <h1>Precision and<br>Accuracy</h1>
       </div>
 
       <div class="right-panel">
@@ -369,7 +369,7 @@ body {
     function clearTables() {
       ["dam-body", "herr-body"].forEach(id => {
         document.getElementById(id).innerHTML =
-          `<tr class="empty-row"><td colspan="2">Inga resultat</td></tr>`;
+          `<tr class="empty-row"><td colspan="2">No results</td></tr>`;
       });
     }
 
@@ -416,7 +416,7 @@ body {
       list = list.slice(0, 5);
 
       if (!list.length) {
-        tbody.innerHTML = `<tr class="empty-row"><td colspan="2">Inga resultat</td></tr>`;
+        tbody.innerHTML = `<tr class="empty-row"><td colspan="2">No results</td></tr>`;
         return;
       }
 
