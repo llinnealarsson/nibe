@@ -2,7 +2,7 @@
 <html lang="sv">
 <head>
   <meta charset="UTF-8" />
-  <title>Precision and Accuracy - Results</title>
+  <title>Präzision und Treffsicherheit - Ergebnisse</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
     html, body {
@@ -231,7 +231,7 @@ body {
 
     <div class="top-row">
       <div class="left-panel">
-        <h1>Precision and<br>Accuracy</h1>
+        <h1>Präzision und<br>Treffsicherheit</h1>
       </div>
 
       <div class="right-panel">
@@ -246,8 +246,9 @@ body {
             <div class="arrow-box">
               <img src="Nibe Pil RGB.png" alt="Pil">
             </div>
-            <div class="cat-title">Men</div>
-            <div class="time-title">Time</div>
+            <div class="cat-title">Herren</div>
+            <div class="time-title">Zeit</div>
+
           </div>
           <table>
             <tbody id="herr-body"></tbody>
@@ -259,8 +260,8 @@ body {
             <div class="arrow-box">
               <img src="Nibe Pil RGB.png" alt="Pil">
             </div>
-            <div class="cat-title">Women</div>
-            <div class="time-title">Time</div>
+            <div class="cat-title">Damen</div>
+            <div class="time-title">Zeit</div>
           </div>
           <table>
             <tbody id="dam-body"></tbody>
@@ -369,7 +370,8 @@ body {
     function clearTables() {
       ["dam-body", "herr-body"].forEach(id => {
         document.getElementById(id).innerHTML =
-          `<tr class="empty-row"><td colspan="2">No results</td></tr>`;
+          `<tr class="empty-row"><td colspan="2">Keine Ergebnisse</td></tr>`;
+
       });
     }
 
